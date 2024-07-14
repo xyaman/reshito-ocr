@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reshito-ocr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+  <a href="scan.html">Scan</a>
+
+  <div class="section">
+
+    <div class="container">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Kind</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+
+  <script>
+    const tableBody = document.getElementById("table-body");
+    let data = localStorage.getItem("buys");
+    if (data) {
+      data = JSON.parse(data);
+    } else {
+      data = [];
+    }
+
+    for (const item of data) {
+      const tr = document.createElement("tr");
+      const dateTd = document.createElement("td");
+      dateTd.textContent = item.date;
+      tr.appendChild(dateTd);
+
+      const kindTd = document.createElement("td");
+      kindTd.textContent = item.kind;
+      tr.appendChild(kindTd);
+
+      const valueTd = document.createElement("td");
+      valueTd.textContent = `¥${item.price}`;
+      tr.appendChild(valueTd);
+
+      tableBody.appendChild(tr);
+    }
+
+  </script>
+</body>
+
+</html>

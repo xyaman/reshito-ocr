@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reshito-ocr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+  <script src="js/scan.js"></script>
+</head>
+
+<body>
+  <a href="index.html">Back</a>
+  <div class="section">
+    <div class="columns">
+      <!-- Left column: Image upload + display -->
+      <div class="column is-half-desktop">
+        <div class="container">
+
+          <div class="file" id="library-input">
+            <label class="file-label">
+              <input type="file" accept="image/*" hidden />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label"> Choose a image… </span>
+              </span>
+            </label>
+          </div>
+
+          <figure class="image is-4by5">
+            <img id="image" alt="The screen capture will appear in this box." />
+          </figure>
+
+        </div>
+      </div>
+      <!-- Right column: Show prices as buttons and then save -->
+      <div class="column is-half-desktop">
+        <div class="columns is-multiline" id="prices-container">
+          <!-- Show prices as buttons -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
