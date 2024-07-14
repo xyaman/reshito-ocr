@@ -42,8 +42,8 @@ function getTextWithTesseract() {
         // parse prices from the text
         for (let line of lines) {
           if (line.includes("¥")) {
-            let line = line.replace(",", "").replace(".", "").replace(" ", "");
-            const value = line.match(/¥\s?(\d+)/);
+            const cleanedLine = line.replace(/[,\s.]/g, '');
+            const value = cleanedLine.match(/¥\s?(\d+)/);
             if (value) {
               prices.push(parseInt(value[1]));
             }
