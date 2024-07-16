@@ -55,6 +55,8 @@
       data = [];
     }
 
+    data = data.reverse();
+
     for (const [index, item] of data.entries()) {
       const tr = document.createElement("tr");
       const dateTd = document.createElement("td");
