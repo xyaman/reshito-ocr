@@ -87,13 +87,14 @@
 
       // Actions
       const optionsTd = document.createElement("td");
+      const realIndex = data.length - 1 - index;
 
       // Edit
       const editButtonA = document.createElement("a");
       //
       // TODO: change this
       const editNotes = item.notes ? item.notes : "";
-      editButtonA.href = `add.html?id=${index}&price=${item.price}&notes=${editNotes}&kind=${item.kind}`;
+      editButtonA.href = `add.html?id=${realIndex}&price=${item.price}&notes=${editNotes}&kind=${item.kind}`;
 
 
       const editButton = document.createElement("button");
@@ -125,7 +126,7 @@
         const result = confirm(`Delete entry of: ¥${item.price}?`);
         if (result) {
           let data = JSON.parse(localStorage.getItem("buys"));
-          data.splice(index, 1);
+          data.splice(realIndex, 1);
 
           // reload website
           localStorage.setItem("buys", JSON.stringify(data));
