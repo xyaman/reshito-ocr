@@ -69,12 +69,15 @@
       tr.appendChild(valueTd);
 
       const notesTd = document.createElement("td");
-      notes = item.notes.slice(0, 20);
-      if (item.notes.length > 20) {
-        notes += "...";
+      let notes = "-"
+      if (item.notes) {
+        notes = item.notes.slice(0, 20);
+        if (item.notes.length > 20) {
+          notes += "...";
+        }
       }
 
-      notesTd.textContent = `${item.notes}`;
+      notesTd.textContent = notes;
       tr.appendChild(notesTd);
 
       tableBody.appendChild(tr);
