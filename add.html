@@ -13,6 +13,11 @@
 <body>
   <div class="section">
     <div class="container">
+      <a href="index.html">
+        <button class="button">Return home</button>
+      </a>
+      <br>
+      <br>
       <!-- Price/Value -->
       <div class="field">
         <label class="label">Price</label>
@@ -66,10 +71,21 @@
 
     // Get url params
     const params = new URLSearchParams(window.location.search);
-    console.log(params.get("price"));
 
     if (params.get("price")) {
       valueElem.value = params.get("price");
+    }
+
+    if (params.get("kind")) {
+      categoryElem.value = params.get("kind");
+    }
+
+    if (params.get("notes")) {
+      notesElem.value = params.get("notes");
+    }
+
+    if (params.get("id")) {
+      submitElem.innerHTML = "Edit";
     }
 
     submit.onclick = () => {
@@ -86,12 +102,23 @@
         data = [];
       }
 
-      data.push({
-        price: valueElem.value,
-        date: new Date().toISOString().split("T")[0],
-        kind: categoryElem.value,
-        notes: notesElem.value,
-      });
+      if (params.get("id")) {
+        data[parseToInt(params.get("id"))] = {
+          price: valueElem.value,
+          date: new Date().toISOString().split("T")[0],
+          kind: categoryElem.value,
+          notes: notesElem.value,
+        };
+      } else {
+
+        data.push({
+          price: valueElem.value,
+          date: new Date().toISOString().split("T")[0],
+          kind: categoryElem.value,
+          notes: notesElem.value,
+        });
+
+      }
 
       localStorage.setItem("buys", JSON.stringify(data));
 
