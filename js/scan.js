@@ -2,11 +2,14 @@
 // This file is used to store the image file that is being scanned
 let imageFile = null;
 let imageElement = null;
+let progressElement = null;
 
 function startup() {
   imageElement = document.getElementById("image");
   imageFile = document.getElementById("library-input");
   imageFile.addEventListener('change', handleFileSelect);
+
+  progressElement = document.getElementById("progress-bar");
 }
 
 function handleFileSelect(event) {
@@ -30,6 +33,8 @@ function handleFileSelect(event) {
 // Note: the image needs to be displayed on the screen
 // or at least, the image needs to be loaded
 function getTextWithTesseract() {
+  progressElement.classList.remove("is-hidden");
+
   Tesseract.createWorker().then(worker => {
     worker.recognize(imageElement, "jpn")
       .then(({ data }) => {
@@ -55,6 +60,7 @@ function getTextWithTesseract() {
         prices = prices.filter((price, index, self) => self.indexOf(price) === index);
 
         createPriceButtons(prices);
+        progressElement.classList.add("is-hidden");
       })
   })
 }
