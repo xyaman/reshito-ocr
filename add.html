@@ -103,9 +103,12 @@
       }
 
       if (params.get("id")) {
-        data[parseToInt(params.get("id"))] = {
+
+        const curr = data[parseInt(params.get("id"))];
+
+        data[parseInt(params.get("id"))] = {
           price: valueElem.value,
-          date: new Date().toISOString().split("T")[0],
+          date: curr.date,
           kind: categoryElem.value,
           notes: notesElem.value,
         };
