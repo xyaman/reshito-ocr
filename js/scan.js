@@ -81,34 +81,10 @@ function createPriceButtons(prices) {
     priceButtons.appendChild(buttonDiv);
 
   }
-
-  // const priceButtons = document.getElementsByClassName("price-button");
-  // for (let i = 0; i < priceButtons.length; i++) {
-  //   priceButtons[i].addEventListener("click", function() {
-  //     console.log("Price button clicked");
-  //   });
 }
 
 function addPriceButtonEvent(price) {
-  // Save the data to the local storage
-  let data = localStorage.getItem("buys");
-  if (data) {
-    data = JSON.parse(data);
-  } else {
-    data = [];
-  }
-
-  data.push({
-    price: price,
-    date: new Date().toISOString().split("T")[0],
-    kind: "",
-  });
-
-  localStorage.setItem("buys", JSON.stringify(data));
-
-  // Clear prices and image
-  document.getElementById("prices-container").innerHTML = "";
-  document.getElementById("image").src = "";
+  document.location.href = `/add.html?price=${price}`;
 }
 
 window.addEventListener("load", startup);

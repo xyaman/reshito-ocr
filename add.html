@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add new expense</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+</head>
+
+<body>
+  <div class="section">
+    <div class="container">
+      <!-- Price/Value -->
+      <div class="field">
+        <label class="label">Price</label>
+        <div class="control has-icons-left">
+          <input type="number" class="input" id="price-field">
+          <span class="icon is-small is-left">
+            <i class="fas fa-yen-sign"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="field" <label class="label">Category</label>
+        <div class="control">
+          <div class="select">
+            <select id="category-field">>
+              <option value="Food">Food</option>
+              <option value="Clothes">Clothes</option>
+              <option value="外食">外食</option>
+              <option value="Rent">Rent</option>
+              <option value="Books">Books</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="field">
+        <label class="label">Notes</label>
+        <div class="control">
+          <textarea placeholder="Notes" class="textarea" id="notes-field"></textarea>
+        </div>
+      </div>
+
+      <!-- Add -->
+      <div class="field">
+        <div class="control">
+          <button class="button is-primary" id="submit">Confirm</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const valueElem = document.getElementById("price-field");
+    const categoryElem = document.getElementById("category-field");
+    const notesElem = document.getElementById("notes-field");
+    const submitElem = document.getElementById("submit");
+
+    // Get url params
+    const params = new URLSearchParams(window.location.search);
+    console.log(params.get("price"));
+
+    if (params.get("price")) {
+      valueElem.value = params.get("price");
+    }
+
+    submit.onclick = () => {
+      // Check important values are not empty
+      if (!valueElem.value) {
+        alert("Value can't be empty");
+        return
+      }
+
+      let data = localStorage.getItem("buys");
+      if (data) {
+        data = JSON.parse(data);
+      } else {
+        data = [];
+      }
+
+      data.push({
+        price: valueElem.value,
+        date: new Date().toISOString().split("T")[0],
+        kind: categoryElem.value,
+        notes: notesElem.value,
+      });
+
+      localStorage.setItem("buys", JSON.stringify(data));
+
+      // Redirect to main page
+      document.location.href = "/";
+    };
+
+  </script>
+</body>
+
+</html>

@@ -10,18 +10,31 @@
 </head>
 
 <body>
-  <a href="scan.html">Scan</a>
+  <div class="section">
+    <div class="container">
+      <a href="add.html">
+        <button class="button is-primary">Add manually</button>
+      </a>
+      <a href="scan.html">
+        <button class="button is-link">Add with camera</button>
+      </a>
+    </div>
+  </div>
 
   <div class="section">
 
     <div class="container">
-
+      <p class="is-size-5" id="total-expenses"></p>
+      <p class="is-size-5" id="monthly-expenses"></p>
+      <br>
+      <p class="is-size-5"></p>
       <table class="table">
         <thead>
           <tr>
             <th>Date</th>
             <th>Kind</th>
             <th>Value</th>
+            <th>Notes</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -55,8 +68,30 @@
       valueTd.textContent = `¥${item.price}`;
       tr.appendChild(valueTd);
 
+      const notesTd = document.createElement("td");
+      notes = item.notes.slice(0, 20);
+      if (item.notes.length > 20) {
+        notes += "...";
+      }
+
+      notesTd.textContent = `${item.notes}`;
+      tr.appendChild(notesTd);
+
       tableBody.appendChild(tr);
     }
+
+    const total_expenses = data.map(item => parseInt(item.price)).reduce((a, b) => a + b);
+    const expensesItem = document.getElementById("total-expenses");
+    expensesItem.innerHTML = `Total Expenses: ¥${total_expenses}`
+
+    const monthNumber = new Date().getMonth() + 1;
+
+    const monthly_expenses = data
+      .filter(item => parseInt(item.date.slice(5, 7)) === monthNumber)
+      .map(item => parseInt(item.price)).reduce((a, b) => a + b);
+
+    const montlyExpensesItem = document.getElementById("monthly-expenses");
+    montlyExpensesItem.innerHTML = `Monthly Expenses: ¥${monthly_expenses}`
 
   </script>
 </body>
