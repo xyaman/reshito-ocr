@@ -90,7 +90,9 @@ function createPriceButtons(prices) {
 }
 
 function addPriceButtonEvent(price) {
-  document.location.href = `/add.html?price=${price}`;
+  // document.location.href = `/add.html?price=${price}`;
+  // temporal solution
+  document.location.href = `/reshito-ocr/add.html?price=${price}`;
 }
 
 window.addEventListener("load", startup);
