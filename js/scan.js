@@ -1,4 +1,3 @@
-
 // This file is used to store the image file that is being scanned
 let imageFile = null;
 let imageElement = null;
@@ -14,7 +13,6 @@ function startup() {
 
 function handleFileSelect(event) {
   event.preventDefault();
-  console.log("File selected");
   const file = event.target.files[0];
   const reader = new FileReader();
   reader.onload = function(e) {

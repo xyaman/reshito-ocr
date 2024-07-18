@@ -46,15 +46,14 @@
   </div>
 
 
-  <script>
-    const tableBody = document.getElementById("table-body");
-    let data = localStorage.getItem("buys");
-    if (data) {
-      data = JSON.parse(data);
-    } else {
-      data = [];
-    }
+  <script type="module">
 
+    import {Store} from "./js/store.js"
+
+    const tableBody = document.getElementById("table-body");
+
+    const store = new Store();
+    let data = store.getData();
     data = data.reverse();
 
     for (const [index, item] of data.entries()) {
@@ -96,7 +95,6 @@
       const editNotes = item.notes ? item.notes : "";
       editButtonA.href = `add.html?id=${realIndex}&price=${item.price}&notes=${editNotes}&kind=${item.kind}`;
 
-
       const editButton = document.createElement("button");
       editButton.classList.add("button");
 
@@ -125,11 +123,9 @@
       removeButton.onclick = () => {
         const result = confirm(`Delete entry of: ¥${item.price}?`);
         if (result) {
-          let data = JSON.parse(localStorage.getItem("buys"));
-          data.splice(realIndex, 1);
+          store.removeValue(realIndex);
 
           // reload website
-          localStorage.setItem("buys", JSON.stringify(data));
           location.reload();
         }
       };

@@ -63,7 +63,12 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+
+    import {Store} from "./js/store.js";
+
+    const store = new Store();
+
     const valueElem = document.getElementById("price-field");
     const categoryElem = document.getElementById("category-field");
     const notesElem = document.getElementById("notes-field");
@@ -95,35 +100,29 @@
         return
       }
 
-      let data = localStorage.getItem("buys");
-      if (data) {
-        data = JSON.parse(data);
-      } else {
-        data = [];
-      }
+      const data = store.getData();
 
       if (params.get("id")) {
 
-        const curr = data[parseInt(params.get("id"))];
+        const parsedID = parseInt(params.get("id"));
+        store.editValue(
+          parsedID,
+          {
+            price: valueElem.value,
+            kind: categoryElem.value,
+            notes: notesElem.value,
+          });
 
-        data[parseInt(params.get("id"))] = {
-          price: valueElem.value,
-          date: curr.date,
-          kind: categoryElem.value,
-          notes: notesElem.value,
-        };
       } else {
 
-        data.push({
-          price: valueElem.value,
-          date: new Date().toISOString().split("T")[0],
-          kind: categoryElem.value,
-          notes: notesElem.value,
-        });
+        store.addValue(
+          {
+            price: valueElem.value,
+            kind: categoryElem.value,
+            notes: notesElem.value,
+          });
 
       }
-
-      localStorage.setItem("buys", JSON.stringify(data));
 
       // Redirect to main page
       // document.location.href = "/";
